@@ -4,19 +4,17 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: avakar/create-deployment@v1
-  #       with:
-  #         auto_merge: false
-  #         environment: plat-ue2-dev-dynamodb
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
-    name: "deploy with atmos"
+    name: deploy
     runs-on: ubuntu-latest
-    environment: plat-ue2-dev-dynamodb
-    #needs: deploy
+    strategy:
+      matrix:
+        include:
+          - environment: plat-ue2-dev-dynamodb
+          - environment: plat-ue2-stage-dynamodb
+          - environment: plat-ue2-prod-dynamodb
+    environment:
+      name: ${{ matrix.environment }}
     steps:
+      - uses: actions/checkout@v3
       - run: echo "atmos terraform apply dynamodb -s demo-plat-ue2-dev"
