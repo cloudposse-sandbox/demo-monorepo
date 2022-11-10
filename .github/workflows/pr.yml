@@ -26,12 +26,12 @@ jobs:
               - 'stacks/orgs/demo/plat/stage/**'
 
       - if: steps.changes.outputs.dynamodb == 'true'
-        run: echo "running terrafomr linting task"
+        run: echo "running terraform linting task"
       - if: steps.changes.outputs.dynamodb == 'true'
         run: echo "atmos detected change in dynamodb component. running terraform plan for affected stacks."
 
       - if: steps.changes.outputs.dynamodb == 'true'
-        run: echo "echo "::group::demo-plat-dev-ue2""
+        run: echo "::group::demo-plat-dev-ue2"
       - if: steps.changes.outputs.dynamodb == 'true'
         run: echo "atmos terraform plan dynamodb -s demo-plat-dev-ue2"
       - if: steps.changes.outputs.dynamodb == 'true'
@@ -39,10 +39,10 @@ jobs:
       - if: steps.changes.outputs.dynamodb == 'true'
         run: echo "storing plan for component dynamodb, stack demo-plat-dev-ue2 in artifacts repository"
       - if: steps.changes.outputs.dynamodb == 'true'
-        run: echo "echo "::endgroup::demo-plat-dev-ue2""
+        run: echo "::endgroup::demo-plat-dev-ue2"
 
       - if: steps.changes.outputs.dynamodb == 'true'
-        run: echo "echo "::group::demo-plat-stage-ue2""
+        run: echo "::group::demo-plat-stage-ue2"
       - if: steps.changes.outputs.dynamodb == 'true'
         run: echo "atmos terraform plan dynamodb -s demo-plat-stage-ue2"
       - if: steps.changes.outputs.dynamodb == 'true'
@@ -50,10 +50,10 @@ jobs:
       - if: steps.changes.outputs.dynamodb == 'true'
         run: echo "storing plan for component dynamodb, stack demo-plat-stage-ue2 in artifacts repository"
       - if: steps.changes.outputs.dynamodb == 'true'
-        run: echo "echo "::endgroup::demo-plat-stage-ue2""
+        run: echo "::endgroup::demo-plat-stage-ue2"
 
       - if: steps.changes.outputs.dynamodb == 'true'
-        run: echo "echo "::group::demo-plat-prod-ue2""
+        run: echo "::group::demo-plat-prod-ue2"
       - if: steps.changes.outputs.dynamodb == 'true'
         run: echo "atmos terraform plan dynamodb -s demo-plat-prod-ue2"
       - if: steps.changes.outputs.dynamodb == 'true'
@@ -61,4 +61,4 @@ jobs:
       - if: steps.changes.outputs.dynamodb == 'true'
         run: echo "storing plan for component dynamodb, stack demo-plat-prod-ue2 in artifacts repository"
       - if: steps.changes.outputs.dynamodb == 'true'
-        run: echo "echo "::endgroup::demo-plat-prod-ue2""
+        run: echo "::endgroup::demo-plat-prod-ue2"
