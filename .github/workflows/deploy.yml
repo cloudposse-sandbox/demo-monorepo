@@ -12,33 +12,10 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: POST /repos/:repository/deployments
-          repository: ${{ github.repository }}
+          owner: ${{ github.repo }}
+          repo: ${{ github.repo }}
           ref: gitub.sha
           environment: plat-ue2-dev-dynamodb
-          auto_merge: false
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: plat-ue2-stage-dynamodb deployment
-        id: create_deployment_stage
-        uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/:repository/deployments
-          repository: ${{ github.repository }}
-          ref: gitub.sha
-          environment: plat-ue2-stage-dynamodb
-          auto_merge: false
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      - name: plat-ue2-prod-dynamodb deployment
-        id: create_deployment_prod
-        uses: octokit/request-action@v2.x
-        with:
-          route: POST /repos/:repository/deployments
-          repository: ${{ github.repository }}
-          ref: gitub.sha
-          environment: plat-ue2-prod-dynamodb
           auto_merge: false
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
