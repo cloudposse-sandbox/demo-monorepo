@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: plat-ue2-dev-dynamodb deployment
-        id: create_deployment
+        id: create_deployment_dev
         uses: octokit/request-action@v2.x
         with:
           route: POST /repos/:repository/deployments
@@ -19,7 +19,7 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: plat-ue2-stage-dynamodb deployment
-        id: create_deployment
+        id: create_deployment_stage
         uses: octokit/request-action@v2.x
         with:
           route: POST /repos/:repository/deployments
@@ -31,7 +31,7 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
       - name: plat-ue2-prod-dynamodb deployment
-        id: create_deployment
+        id: create_deployment_prod
         uses: octokit/request-action@v2.x
         with:
           route: POST /repos/:repository/deployments
