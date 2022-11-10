@@ -13,3 +13,10 @@ jobs:
           environment: plat-ue2-dev-dynamodb
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  atmos:
+    name: "deploy with atmos"
+    runs-on: ubuntu-latest
+    environment: plat-ue2-dev-dynamodb
+    needs: deploy
+    steps:
+      - run: echo "atmos terraform apply dynamodb -s demo-plat-ue2-dev"
