@@ -1,5 +1,5 @@
 name: GitHub Atmos Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: A demo action for atmos workflows 👽
 on:
   pull_request:
 jobs:
@@ -8,12 +8,57 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: echo "atmos detected changes in the following files:" && git diff --name-only HEAD~1
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            dynamodb:
+              - 'components/terraform/dynamodb/**'
+            s3bucket:
+              - 'components/terraform/s3bucket/**'
+            sqsQueue:
+              - 'components/terraform/sqsQueue/**'
+            devStack:
+              - 'stacks/orgs/demo/plat/dev/**'
+            prodStack:
+              - 'stacks/orgs/demo/plat/prod/**'
+            stageStack:
+              - 'stacks/orgs/demo/plat/stage/**'
+
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "running terrafomr linting task"
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "atmos detected change in dynamodb component. running terraform plan for affected stacks."
+
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "echo "::group::demo-plat-dev-ue2""
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "atmos terraform plan dynamodb -s demo-plat-dev-ue2"
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "Plan 1 to add, 0 to change, 0 to destroy."
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "storing plan for component dynamodb, stack demo-plat-dev-ue2 in artifacts repository"
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "echo "::endgroup::demo-plat-dev-ue2""
+
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "echo "::group::demo-plat-stage-ue2""
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "atmos terraform plan dynamodb -s demo-plat-stage-ue2"
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "Plan 1 to add, 0 to change, 0 to destroy."
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "storing plan for component dynamodb, stack demo-plat-stage-ue2 in artifacts repository"
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "echo "::endgroup::demo-plat-stage-ue2""
+
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "echo "::group::demo-plat-prod-ue2""
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "atmos terraform plan dynamodb -s demo-plat-prod-ue2"
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "Plan 1 to add, 0 to change, 0 to destroy."
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "storing plan for component dynamodb, stack demo-plat-prod-ue2 in artifacts repository"
+      - if: steps.changes.outputs.dynamodb == 'true'
+        run: echo "echo "::endgroup::demo-plat-prod-ue2""
