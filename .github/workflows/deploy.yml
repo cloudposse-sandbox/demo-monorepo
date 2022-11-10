@@ -1,7 +1,9 @@
 name: GitHub Atmos Deployment Demo
 run-name: A demo deployment action for atmos workflows 👽
 on:
-  pull_request:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 jobs:
   deploy:
