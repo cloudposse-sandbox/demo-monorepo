@@ -4,16 +4,16 @@ on:
   pull_request:
   workflow_dispatch:
 jobs:
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: avakar/create-deployment@v1
+  #       with:
+  #         auto_merge: false
+  #         environment: plat-ue2-dev-dynamodb
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: avakar/create-deployment@v1
-        with:
-          auto_merge: false
-          environment: plat-ue2-dev-dynamodb
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  atmos:
     name: "deploy with atmos"
     runs-on: ubuntu-latest
     environment: plat-ue2-dev-dynamodb
