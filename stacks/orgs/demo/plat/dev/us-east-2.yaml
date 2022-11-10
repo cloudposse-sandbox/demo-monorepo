@@ -1,0 +1,15 @@
+import:
+  - mixins/region/us-east-2
+  - orgs/demo/plat/dev/_defaults
+
+components:
+  terraform:
+    dynamodb:
+      vars:
+        db_name: devdb
+    s3bucket:
+      vars:
+        bucket_name: devbucket
+    sqsQueue:
+      vars:
+        queue_name: devqueue
