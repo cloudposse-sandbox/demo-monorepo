@@ -7,15 +7,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: plat-ue2-dev-dynamodb deployment
-        id: create_deployment_dev
-        uses: octokit/request-action@v2.x
+      - uses: avakar/create-deployment@v1
         with:
-          route: POST /repos/:repository/deployments
-          owner: ${{ github.repo }}
-          repo: ${{ github.repo }}
-          ref: gitub.sha
-          environment: plat-ue2-dev-dynamodb
           auto_merge: false
+          environment: plat-ue2-dev-dynamodb
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
