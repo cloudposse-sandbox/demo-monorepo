@@ -33,21 +33,10 @@ jobs:
         if: steps.changes.outputs.dynamodb == 'true'
         run: echo "atmos detected change in dynamodb component. running terraform plan for affected stacks."
 
-      - name: plan dynamodb/demo-plat-dev-ue2
+      - name: plan plat-ue2-dev-dynamodb
         if: steps.changes.outputs.dynamodb == 'true'
         run: |
-          echo "atmos terraform plan dynamodb -s demo-plat-dev-ue2"
+          echo "atmos terraform plan dynamodb -s demo-plat-ue2-dev"
+          sleep 4
           echo "Plan: 1 to add, 0 to change, 0 to destroy."
-          echo "storing plan for component dynamodb, stack demo-plat-dev-ue2 in artifacts repository"
-      - name: plan dynamodb/demo-plat-stage-ue2
-        if: steps.changes.outputs.dynamodb == 'true'
-        run: |
-          echo "atmos terraform plan dynamodb -s demo-plat-stage-ue2"
-          echo "Plan: 1 to add, 0 to change, 0 to destroy."
-          echo "storing plan for component dynamodb, stack demo-plat-stage-ue2 in artifacts repository"
-      - name: plan dynamodb/demo-plat-prod-ue2
-        if: steps.changes.outputs.dynamodb == 'true'
-        run: |
-          echo "atmos terraform plan dynamodb -s demo-plat-prod-ue2"
-          echo "Plan: 1 to add, 0 to change, 0 to destroy."
-          echo "storing plan for component dynamodb, stack demo-plat-prod-ue2 in artifacts repository"
+          echo "storing plan for component dynamodb, stack demo-plat-ue2-dev in artifacts repository"
