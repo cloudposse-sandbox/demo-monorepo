@@ -25,22 +25,28 @@ jobs:
             stageStack:
               - 'stacks/orgs/demo/plat/stage/**'
 
-      - if: steps.changes.outputs.dynamodb == 'true'
+      - name: terraform linting tasks
+        if: steps.changes.outputs.dynamodb == 'true'
         run: echo "running terraform linting task"
-      - if: steps.changes.outputs.dynamodb == 'true'
+
+      - name: detect changes in components and stacks
+        if: steps.changes.outputs.dynamodb == 'true'
         run: echo "atmos detected change in dynamodb component. running terraform plan for affected stacks."
 
-      - if: steps.changes.outputs.dynamodb == 'true'
+      - name: plan dynamodb/demo-plat-dev-ue2
+        if: steps.changes.outputs.dynamodb == 'true'
         run: |
           echo "atmos terraform plan dynamodb -s demo-plat-dev-ue2"
           echo "Plan: 1 to add, 0 to change, 0 to destroy."
           echo "storing plan for component dynamodb, stack demo-plat-dev-ue2 in artifacts repository"
-      - if: steps.changes.outputs.dynamodb == 'true'
+      - name: plan dynamodb/demo-plat-stage-ue2
+        if: steps.changes.outputs.dynamodb == 'true'
         run: |
           echo "atmos terraform plan dynamodb -s demo-plat-stage-ue2"
           echo "Plan: 1 to add, 0 to change, 0 to destroy."
           echo "storing plan for component dynamodb, stack demo-plat-stage-ue2 in artifacts repository"
-      - if: steps.changes.outputs.dynamodb == 'true'
+      - name: plan dynamodb/demo-plat-prod-ue2
+        if: steps.changes.outputs.dynamodb == 'true'
         run: |
           echo "atmos terraform plan dynamodb -s demo-plat-prod-ue2"
           echo "Plan: 1 to add, 0 to change, 0 to destroy."
