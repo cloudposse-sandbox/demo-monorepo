@@ -51,3 +51,20 @@ jobs:
             - plat-ue2-dev-dynamodb
 
             `Plan: 1 to add, 0 to change, 0 to destroy.`
+
+      - name: add label
+        if: steps.changes.outputs.dynamodb == 'true' || steps.changes.outputs.devStack == 'true'
+        uses: lightspeedretail/actions-label-prs@v1
+        with:
+          task: "label_pr_add"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ADD_LABEL: "has-changes"
+      - name: add label
+        if: steps.changes.outputs.dynamodb == 'true' || steps.changes.outputs.devStack == 'true'
+        uses: lightspeedretail/actions-label-prs@v1
+        with:
+          task: "label_pr_add"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ADD_LABEL: "afftected-stack-plat-ue2-dev-dynamodb"
