@@ -34,9 +34,20 @@ jobs:
         run: echo "atmos detected change in dynamodb component. running terraform plan for affected stacks."
 
       - name: plan plat-ue2-dev-dynamodb
-        if: steps.changes.outputs.dynamodb == 'true'
+        if: steps.changes.outputs.dynamodb == 'true' || steps.changes.outputs.devStack == 'true'
         run: |
-          echo "atmos terraform plan dynamodb -s demo-plat-ue2-dev"
+          echo "atmos terraform plan dynamodb -s plat-ue2-dev"
           sleep 4
           echo "Plan: 1 to add, 0 to change, 0 to destroy."
           echo "storing plan for component dynamodb, stack demo-plat-ue2-dev in artifacts repository"
+      - name: Create comment
+        if: steps.changes.outputs.dynamodb == 'true' || steps.changes.outputs.devStack == 'true'
+        uses: peter-evans/create-or-update-comment@v2
+        with:
+          issue-number: github.event.number
+          body: |
+            Atmos detected changes. Running terraform plan for affected stacks:
+
+            - plat-ue2-dev-dynamodb
+
+            `Plan: 1 to add, 0 to change, 0 to destroy.`
