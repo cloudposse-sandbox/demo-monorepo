@@ -9,10 +9,11 @@ jobs:
   build-matrix:
     runs-on: ubuntu-latest
     steps:
-      - id: set-matrix
-        run: echo version_matrix="$(jq -n --arg v plat-ue2-dev-dynamodb '[{environment: $v}]')" >> $GITHUB_OUTPUT
-    outputs:
-      version_matrix: ${{ steps.set-matrix.outputs.version_matrix }}
+      - uses: sergeysova/jq-action@v2
+        id: set-matrix
+        with:
+          cmd: "jq -n --arg v plat-ue2-dev-dynamodb '[{environment: $v}]"
+          multiline: true
   deploy:
     name: deploy
     needs: build-matrix
@@ -20,7 +21,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - environment: ${{ fromJson(needs.build-matrix.outputs.version_matrix) }}
+          - environment: ${{ fromJson(needs.build-matrix.outputs.value) }}
     environment:
       name: ${{ matrix.environment }}
     steps:
