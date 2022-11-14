@@ -12,7 +12,7 @@ jobs:
       - uses: sergeysova/jq-action@v2
         id: set-matrix
         with:
-          cmd: "jq -n --arg v plat-ue2-dev-dynamodb '[{environment: $v}]"
+          cmd: "jq -n --arg v plat-ue2-dev-dynamodb '[{environment: $v}]'"
           multiline: true
   deploy:
     name: deploy
