@@ -6,22 +6,13 @@ on:
       - main
   workflow_dispatch:
 jobs:
-  build-matrix:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: sergeysova/jq-action@v2
-        id: set-matrix
-        with:
-          cmd: "jq -n --arg v plat-ue2-dev-dynamodb '[{environment: $v}]'"
-          multiline: true
   deploy:
     name: deploy
-    needs: build-matrix
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
-          - environment: ${{ fromJson(needs.build-matrix.outputs.value) }}
+          - environment: plat-ue2-dev-dynamodb
     environment:
       name: ${{ matrix.environment }}
     steps:
